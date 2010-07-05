@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Name:        Rb-XMacro
+# URI:         http://github.com/mikesmullin/Ruby-XMacro
+# Description: Linux/XWindows Macro Recorder and Playback; based on xmacro, simplified by Ruby.
+# Version:     1.0
+# Author:      Mike Smullin <mike@smullindesign.com>
+# Author URI:  http://www.smullindesign.com/
+# License:     GPLv2
+
+#
+# Usage:
+# rbxmacro example/awesome-workspace-setup
+#
+
+echo 'RB-XMacro v1.0 by Mike Smullin <mike@smullindesign.com>'
+
+if [ $# == 1 ]
+then
+  ruby xmacro.rb $1.rb | xmacroplay ":0.0"
+else
+  echo 'Please provide path to your rb macro script as the first argument.'
+fi
+
+echo 'Done.'
