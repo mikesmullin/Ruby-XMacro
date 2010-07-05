@@ -1,3 +1,6 @@
+// in order for this to work you need
+// sudo aptitude install libxtst-dev
+
 /***************************************************************************** 
  *
  * xmacroplay - a utility for playing X mouse and key events.
@@ -35,6 +38,7 @@
  * Includes
  ****************************************************************************/
 #include <stdio.h>		
+#include <time.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <ctype.h>
@@ -50,13 +54,9 @@
 /***************************************************************************** 
  * What iostream do we have?
  ****************************************************************************/
-#ifdef HAVE_IOSTREAM
 #include <iostream>
 #include <iomanip>
-#else
-#include <iostream.h>
-#include <iomanip.h>
-#endif
+using namespace std;
 
 #define PROG "xmacroplay"
 
@@ -344,7 +344,7 @@ void eventLoop (Display * RemoteDpy, int RemoteScreen) {
 	{
 	  cin >> b;
 	  cout << "Delay: " << b << endl;
-	  sleep ( b );
+	  usleep ( b );
 	}
 	else if (!strcasecmp("ButtonPress",ev))
 	{
