@@ -59,14 +59,21 @@ def keydown(c) key :Press, c; end
 def keypress(*keys)
   keys.each do |c| keydown c; end
   keys.reverse.each do |c| keyup c; end
-  wait 0.1
+#   wait 0.1
   wait 1 if $debug # wait a full second between each keypress if debugging is enabled
 end
 def type(txt) txt.to_s.split('').each do |c| keypress c; end; end
 def enter(txt=nil); type txt if txt; keypress :Enter; wait; end
+def move(x, y) e "MotionNotify #{x} #{y}"; end
 def press(btn=1) e "ButtonPress #{btn}"; end
 def release(btn=1) e "ButtonRelease #{btn}"; end
 def click(btn=1) press btn; release btn; end
+def moveAndClick(x, y, btn=1) move(x, y); click(btn); end
+def moveAndClickPercentage(xp, yp, btn=1)
+  x, y = `xrandr`.scan(/current (\d+) x (\d+)/).flatten # linux only
+  move (x.to_i * xp).ceil, (y.to_i * yp).ceil
+  click btn
+end
 def wait(sec=1) e "Delay #{(sec*1000000).to_i}\n\n"; end
 def debug(bool) $debug = bool; end
 
